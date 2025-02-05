@@ -59,6 +59,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->authorize('update', $product);
         $product->update([
             'name'=>$request->name,
             'price'=>$request->price,
@@ -73,9 +74,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('delete', $product);
         $product->delete();
         return redirect()->route('product.index')->with(key: ['success'=>'product deleted successfully']);
-
     }
     public function filter($amount)
     {
