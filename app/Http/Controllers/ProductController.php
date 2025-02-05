@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -13,7 +12,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products=Product::get();
+        return view('admin.product.index',compact('products'));
     }
 
     /**
@@ -21,7 +21,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
+
     }
 
     /**
@@ -29,7 +30,12 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        Product::create([
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'quantity'=>$request->quantity
+        ]);
+        return redirect()->route('product.index')->with(['success'=>'product created successfully']);
     }
 
     /**
@@ -37,7 +43,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.product.show',compact('product'));
     }
 
     /**
@@ -45,7 +51,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit',compact('product'));
     }
 
     /**
@@ -53,7 +59,13 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update([
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'quantity'=>$request->quantity
+        ]);
+        return redirect()->route('product.index')->with(key: ['success'=>'product updated successfully']);
+
     }
 
     /**
@@ -61,10 +73,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('product.index')->with(key: ['success'=>'product deleted successfully']);
+
     }
-    public function expensiveProducts($amount)
-{
-    return Product::where('price', '>', $amount)->get();
-}
+    public function filter($amount)
+    {
+        return Product::where('price', '>', $amount)->get();
+    }
 }

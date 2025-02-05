@@ -13,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories=Category::all();
+        return view('admin.category.index',compact('categories'));
     }
 
     /**
@@ -21,7 +22,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
+
     }
 
     /**
@@ -29,7 +31,10 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        Category::create([
+            'name'=>$request->name,
+        ]);
+        return redirect()->route('category.index')->with(['success'=>'category created successfully']);
     }
 
     /**
@@ -45,7 +50,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit',compact('category'));
+
     }
 
     /**
@@ -53,7 +59,11 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->update([
+            'name'=>$request->name,
+        ]);
+        return redirect()->route('category.index')->with(['success'=>'category updated successfully']);
+
     }
 
     /**
@@ -61,6 +71,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('category.index')->with(['success'=>'category deleted successfully']);
+
     }
 }
