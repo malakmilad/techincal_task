@@ -3,7 +3,7 @@
 <div class="col-12">
     <div class="card top-selling overflow-auto">
       <div class="card-body pb-0">
-        <h5 class="card-title">Top Selling <span>| Today</span></h5>
+        <h5 class="card-title">All Product</h5>
         <table class="table table-borderless">
           <thead>
             <tr>
@@ -19,9 +19,9 @@
             <tr>
                 <td>{{$product->id}}</td>
                 <td>{{$product->name}}</td>
-                <td>{{$product->price}}</td>
+                <td>{{$product->price}}$</td>
                 <td>{{$product->quantity}}</td>
-                <td>{{$product->category_id}}</td>
+                <td>{{$product->category->name}}</td>
               </tr>
             @endforeach
           </tbody>

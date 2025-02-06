@@ -15,19 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','log.requests'])->name('dashboard');
 
 Route::middleware(['auth','log.requests'])->group(function () {
     //*product
     Route::get('products', [ProductController::class, 'index'])->name('product.index');
     Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
-    Route::get('product/edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('product/update/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::get('product/destroy/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 });

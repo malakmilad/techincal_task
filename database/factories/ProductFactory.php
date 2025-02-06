@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->word(),
             'price' => $this->faker->randomFloat(2, 10, 2000),
             'quantity' => $this->faker->numberBetween(1, 100),
-            'category_id' => $this->faker->numberBetween(1, 5), // Assuming 5 categories
+            'category_id' => $this->faker->numberBetween(1, 6),
         ];
     }
 }
