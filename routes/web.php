@@ -30,8 +30,8 @@ Route::middleware(['auth','log.requests'])->group(function () {
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
     Route::put('product/update/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::get('product/destroy/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
-    //*payment 
-    Route::post('payment/charge', [PaymentController::class, 'charge'])->name('payment.charge');
-    Route::get('payment/view', [PaymentController::class, 'view'])->name('payment.view');
+    //*payment
+    Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+    Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
 });
 require __DIR__ . '/auth.php';

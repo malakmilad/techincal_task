@@ -25,7 +25,7 @@
             </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{route('payment.view')}}">
+            <a class="nav-link collapsed" href="{{route('payment.form')}}">
               <i class="bi bi-person"></i>
               <span>Payment</span>
             </a>
