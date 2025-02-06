@@ -24,5 +24,11 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{route('payment.view')}}">
+              <i class="bi bi-person"></i>
+              <span>Payment</span>
+            </a>
+          </li>
      </ul>
  </aside>

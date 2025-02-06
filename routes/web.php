@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,8 @@ Route::middleware(['auth','log.requests'])->group(function () {
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
     Route::put('product/update/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::get('product/destroy/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+    //*payment 
+    Route::post('payment/charge', [PaymentController::class, 'charge'])->name('payment.charge');
+    Route::get('payment/view', [PaymentController::class, 'view'])->name('payment.view');
 });
 require __DIR__ . '/auth.php';
