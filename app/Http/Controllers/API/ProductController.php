@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -27,6 +26,20 @@ class ProductController extends Controller
                 'total'         => $products->total(),
                 'last_page'     => $products->lastPage(),
             ],
+        ], 200);
+    }
+    public function store(StoreProductRequest $request)
+    {
+        $product = Product::create([
+            'name'        => $request->name,
+            'price'       => $request->price,
+            'quantity'    => $request->quantity,
+            'category_id' => $request->category_id,
+        ]);
+        return response()->json([
+            'status'  => 200,
+            'message' => 'product Created Successfully',
+            'data'    => new ProductResource($product),
         ], 200);
     }
 }

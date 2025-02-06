@@ -1,9 +1,6 @@
 <?php
-
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -11,13 +8,30 @@ class ProductTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function test_add_new_product(): void
     {
-        $response = $this->post('/products', [
-            'name' => 'Laptop',
-            'price' => 1000,
-            'quantity' => 10,
+        $user = \App\Models\User::factory()->create([
+            'name'     => 'malak',
+            'email'    => 'malak@gmail.com',
+            'password' => bcrypt('12345678'),
         ]);
-        $response->assertStatus(201);
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        $productData = [
+            'name'        => 'Test',
+            'price'       => 1000,
+            'quantity'    => 5,
+            'category_id' => 1,
+        ];
+
+        $response = $this->postJson('/api/products', $productData, [
+            'Authorization' => 'Bearer ' . $token,
+        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('products', ['name' => $productData['name']]);
+
     }
 }

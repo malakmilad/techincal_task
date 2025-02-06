@@ -12,4 +12,8 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+    public function scopePriceGreaterThan($query, $amount)
+    {
+        return $query->where('price', '>', $amount);
+    }
 }

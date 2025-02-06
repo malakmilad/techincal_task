@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum','log.requests'])->group( function () {
     Route::apiResource('products', ProductController::class);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
