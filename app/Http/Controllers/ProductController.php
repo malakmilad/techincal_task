@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -21,7 +23,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.create');
+        $categories=Category::get();
+        return view('admin.product.create',compact('categories'));
 
     }
 
@@ -33,7 +36,8 @@ class ProductController extends Controller
         Product::create([
             'name'=>$request->name,
             'price'=>$request->price,
-            'quantity'=>$request->quantity
+            'quantity'=>$request->quantity,
+            'category_id'=>$request->category_id
         ]);
         return redirect()->route('product.index')->with(['success'=>'product created successfully']);
     }
@@ -43,7 +47,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.product.show',compact('product'));
+        //
     }
 
     /**
@@ -51,7 +55,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.product.edit',compact('product'));
+        //
     }
 
     /**
