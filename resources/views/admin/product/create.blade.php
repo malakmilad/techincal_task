@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">create an product</h5>
-                <form action="{{ route('product.store') }}" method="post">
+                <form action="{{ route('product.store') }}" method="post" id="product_form">
                     @csrf
                     <div class="row g-3">
                         <div class="col-12">
@@ -68,4 +68,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script src="{{asset('assets/js/product.js')}}"></script>
 @endsection
